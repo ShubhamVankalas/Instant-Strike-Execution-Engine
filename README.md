@@ -1,5 +1,7 @@
 # Instant Strike Execution Engine
 
+![Instant Strike Execution Engine Banner](banner.png)
+
 A modular, high-performance, low-latency options trading simulation system. It connects to live market tick streams, maintains a 60-second price window in Redis, triggers simulated option order executions on rapid spot index movements, persists transactions to PostgreSQL, sends real-time WhatsApp notifications, and integrates with a local LLM (LM Studio) via a Model Context Protocol (MCP) server.
 
 ---
