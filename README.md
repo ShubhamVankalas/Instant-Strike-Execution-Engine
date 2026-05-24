@@ -153,32 +153,6 @@ Create a database named `strike_db` in your PostgreSQL instance. The database mo
 
 ### 4. Configure Environment Variables
 Create a `.env` file in the root directory (based on `.env.example`).
-```ini
-# Database Connection URL (Async dialect)
-DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/strike_db
-
-# Redis Connection URL
-REDIS_URL=redis://localhost:6379/0
-
-# DhanHQ Client Credentials (Optional - Falls back to simulator if empty)
-DHAN_CLIENT_ID=
-DHAN_ACCESS_TOKEN=
-
-# Twilio WhatsApp Credentials (Optional - Sandbox numbers)
-TWILIO_ACCOUNT_SID=your_twilio_sid
-TWILIO_AUTH_TOKEN=your_twilio_token
-TWILIO_FROM_NUMBER=whatsapp:+14155238886
-TWILIO_TO_NUMBER=whatsapp:+your_registered_number
-
-# LM Studio Configuration
-LM_STUDIO_BASE_URL=http://localhost:1234/v1
-LM_STUDIO_MODEL=google/gemma-4-e4b
-
-
-# Quant Configuration
-SPIKE_THRESHOLD=0.0005  # Set to 0.05 (5%) in production. Use 0.0005 (0.05%) for testing.
-SIMULATION_MODE=true    # Set to true to run NIFTY 50 price feed simulator
-```
 
 ---
 
