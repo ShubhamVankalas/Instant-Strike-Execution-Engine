@@ -17,42 +17,63 @@ A modular, high-performance, low-latency options trading simulation system. It c
 
 ```mermaid
 graph TD
+    %% Define color palette and styles
+    %% Ingestion color: Light blue
+    %% Ingestion Analysis color: Medium blue
+    %% Trade Generation color: Green
+    %% Execution Workflow color: Light orange
+    %% Celery Task Offloading/Actions color: Brown
+    %% User Interfaces & MCP color: Deep purple
+    %% PostgreSQL/Redis colors: Lighter versions of their respective flows
+    
+    %% Styles for classes
+    classDef ingestion fill:#E1F5FE,stroke:#01579B,stroke-width:2px,color:#01579B;
+    classDef analysis fill:#B3E5FC,stroke:#0277BD,stroke-width:2px,color:#0277BD;
+    classDef tradeGen fill:#C8E6C9,stroke:#1B5E20,stroke-width:2px,color:#1B5E20;
+    classDef execution fill:#FFE0B2,stroke:#E65100,stroke-width:2px,color:#E65100;
+    classDef offload fill:#D7CCC8,stroke:#4E342E,stroke-width:2px,color:#4E342E;
+    classDef celeryAction fill:#D7CCC8,stroke:#4E342E,stroke-width:2px,color:#4E342E;
+    classDef ui fill:#E1BEE7,stroke:#4A148C,stroke-width:2px,color:#4A148C;
+    classDef db fill:#BBDEFB,stroke:#1565C0,stroke-width:2px,color:#1565C0;
+    classDef redis fill:#F8BBD0,stroke:#880E4F,stroke-width:2px,color:#880E4F;
+    classDef gateway fill:#DCEDC8,stroke:#33691E,stroke-width:2px,color:#33691E;
+
     %% Ingestion Pipeline
-    Dhan["DhanHQ WebSocket / Simulator"] -->|Streams Ticks 100ms| FastServer[FastAPI App Server]
-    FastServer -->|Add tick & Prune old ticks| RedisWindow[Redis Sorted Set nifty_ticks]
+    Dhan["DhanHQ WebSocket / Simulator"] -->|Streams Ticks 100ms| FastServer[FastAPI App Server]:::ingestion
+    FastServer -->|Add tick & Prune old ticks| RedisWindow[Redis Sorted Set nifty_ticks]:::redis
     
     %% Ingestion Analysis
-    FastServer -->|Query oldest tick| RedisWindow
-    RedisWindow -->|Oldest tick & Current Spot| SpikeCheck{"Price Spike Detected?<br>|Pt - P_t-60|/P_t-60 >= Threshold"}
+    FastServer -->|Query oldest tick| RedisWindow:::redis
+    RedisWindow -->|Oldest tick & Current Spot| SpikeCheck{"Price Spike Detected?<br>|Pt - P_t-60|/P_t-60 >= Threshold"}:::analysis
     
     %% Trade Generation
-    SpikeCheck -->|No| Skip[Skip / Wait next tick]
-    SpikeCheck -->|Yes: Spike UP/DOWN| Execution[Trading Execution Engine]
+    SpikeCheck -->|No| Skip[Skip / Wait next tick]:::tradeGen
+    SpikeCheck -->|Yes: Spike UP/DOWN| Execution[Trading Execution Engine]:::execution
     
     %% Execution Workflow
-    Execution -->|1. Calculate ATM Strike| Rounding["NIFTY Strike Selector<br>round to nearest 50"]
-    Execution -->|2. Mock Entry Premium| Pricing["Delta Greeks Pricing Model<br>0.75% of Spot"]
-    Execution -->|3. Commit OPEN Trade| PostgreSQL[(PostgreSQL DB trades Table)]
+    Execution -->|1. Calculate ATM Strike| Rounding["NIFTY Strike Selector<br>round to nearest 50"]:::execution
+    Execution -->|2. Mock Entry Premium| Pricing["Delta Greeks Pricing Model<br>0.75% of Spot"]:::execution
+    Execution -->|3. Commit OPEN Trade| PostgreSQL[(PostgreSQL DB trades Table)]:::db
     
     %% Celery Task Offloading
-    Execution -->|4. Push Celery Tasks| RedisBroker[Redis Task Queue Broker]
-    RedisBroker -->|Worker Consume| CeleryWorker[Celery Background Worker]
+    Execution -->|4. Push Celery Tasks| RedisBroker[Redis Task Queue Broker]:::redis
+    RedisBroker -->|Worker Consume| CeleryWorker[Celery Background Worker]:::offload
     
     %% Celery Actions
-    CeleryWorker -->|WhatsApp Alert| Twilio[Twilio WhatsApp Gateway]
-    CeleryWorker -->|Delayed 60s Close| CloseCheck["Query Redis Current Spot & Update DB status to CLOSED"]
-    CloseCheck -->|Saves exit premium, spot, PnL| PostgreSQL
+    CeleryWorker -->|WhatsApp Alert| Twilio[Twilio WhatsApp Gateway]:::gateway
+    CeleryWorker -->|Delayed 60s Close| CloseCheck["Query Redis Current Spot & Update DB status to CLOSED"]:::celeryAction
+    CloseCheck -->|Saves exit premium, spot, PnL| PostgreSQL:::db
     
     %% User Interfaces & MCP
-    Streamlit[Streamlit Admin Dashboard] -->|Query Ticks| RedisWindow
-    Streamlit -->|Query Trades| PostgreSQL
-    Streamlit -->|Direct API Call| LMStudio[LM Studio Gemma Local LLM]
-    Streamlit -->|POST Manual Spike / Close Position| FastServer
+    Streamlit[Streamlit Admin Dashboard]:::ui -->|Query Ticks| RedisWindow:::redis
+    Streamlit -->|Query Trades| PostgreSQL:::db
+    Streamlit -->|Direct API Call| LMStudio[LM Studio Gemma Local LLM]:::ui
+    Streamlit -->|POST Manual Spike / Close Position| FastServer:::ingestion
     
-    Streamlit[Streamlit Admin Dashboard] -->|Invokes MCP Tools| MCP[MCP Server Tools]
-    MCP -->|Query DB Context| PostgreSQL
-    MCP -->|Query Ticks Context| RedisWindow
-    Streamlit -->|Prompt + Tool Outputs| LMStudio[LM Studio Gemma Local LLM]
+    Streamlit -->|Invokes MCP Tools| MCP[MCP Server Tools]:::ui
+    MCP -->|Query DB Context| PostgreSQL:::db
+    MCP -->|Query Ticks Context| RedisWindow:::redis
+    Streamlit -->|Prompt + Tool Outputs| LMStudio:::ui
 ```
 
 ---
