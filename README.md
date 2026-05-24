@@ -112,14 +112,15 @@ Instant Strike Execution Engine/
 │   ├── app.py               # Streamlit main dashboard app
 │   └── styles.css           # Premium dashboard styling
 │
-├── tests/                   # Python Pytest unit tests
 ├── main.py                  # Single CLI launch point
-├── schema.sql               # PostgreSQL optimized schema DDL script
+├── run.py                   # Process-managing unified application launcher
 ├── docker-compose.yml       # Docker environment compose definitions
 ├── Dockerfile               # Production Docker container manifest
 ├── requirements.txt         # Dependency manifest
-└── .env                     # Local environment settings
+├── .env.example             # Local environment settings template
+└── .gitignore               # Merged git ignore rules
 ```
+
 
 ---
 
@@ -146,11 +147,8 @@ pip install -r requirements.txt
 ```
 
 ### 3. Initialize PostgreSQL Database
-Create a database named `strike_db` in your PostgreSQL instance, then run the initialization schema script containing optimized indices:
-```powershell
-# Execute schema on local database (replace postgres user/host as needed)
-psql -U postgres -h localhost -p 5432 -d strike_db -f schema.sql
-```
+Create a database named `strike_db` in your PostgreSQL instance. The database models and tables will be created automatically by SQLModel/SQLAlchemy on application startup.
+
 
 ### 4. Configure Environment Variables
 Create a `.env` file in the root directory (based on `.env.example`).
@@ -281,5 +279,5 @@ docker-compose up --build
 ```
 * The FastAPI web server is accessible at `http://localhost:8000`.
 * The Streamlit Admin Dashboard is accessible at `http://localhost:8501`.
-* The Postgres container runs the DB setup schema automatically on startup.
+* The database tables are created automatically by the FastAPI service on container startup.
 

@@ -14,8 +14,7 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-      # Mount initialization schema to run automatically on container startup
-      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d strike_db"]
       interval: 5s
