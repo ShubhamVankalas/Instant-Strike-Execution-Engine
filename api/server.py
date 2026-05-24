@@ -92,18 +92,7 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title="Instant Strike Execution Engine",
         description=(
-            "## ⚡ Low-Latency Options Trading Simulation & Analytics Engine\n\n"
-            "This engine streams live NIFTY 50 market ticks from DhanHQ WebSocket (or simulates them), "
-            "detects rapid price spikes using a Redis sliding window, calculates ATM option strikes, "
-            "executes simulated options trades, persists all transactions to PostgreSQL, and dispatches "
-            "real-time WhatsApp notifications via Twilio.\n\n"
-            "### Key Capabilities\n"
-            "- **Real-Time Ingestion**: Live tick streaming with sub-second spike detection\n"
-            "- **Quant Engine**: ATM strike selection with Delta-based premium pricing\n"
-            "- **Trade Management**: Automated entry/exit with Celery background workers\n"
-            "- **Notifications**: WhatsApp alerts for every trade event\n"
-            "- **AI Intelligence**: MCP server + LLM integration for natural language trade queries\n"
-            "- **Visualization**: Interactive Plotly charts for spot price & trade timelines\n"
+            "A modular, high-performance, low-latency options trading simulation system. It connects to live market tick streams, maintains a 60-second price window in Redis, triggers simulated option order executions on rapid spot index movements, persists transactions to PostgreSQL, sends real-time WhatsApp notifications, and integrates with a local LLM (LM Studio) via a Model Context Protocol (MCP) server."
         ),
         version="1.0.0",
         lifespan=lifespan,
