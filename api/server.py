@@ -110,7 +110,7 @@ def create_app() -> FastAPI:
         openapi_tags=tags_metadata,
         contact={
             "name": "Shubham",
-            "url": "https://github.com/shubham",
+            "url": "https://github.com/ShubhamVankalas",
         },
         license_info={
             "name": "MIT License",
