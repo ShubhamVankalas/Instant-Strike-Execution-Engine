@@ -1,0 +1,128 @@
+# ============================================
+# Instant Strike Execution Engine - .gitignore
+# ============================================
+
+# Virtual Environments
+strikeEngine/
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.pixi/
+__pypackages__/
+
+# Python Bytecode
+__pycache__/
+*.py[codz]
+*$py.class
+
+# C extensions
+*.so
+
+# Pytest / Testing / Coverage
+.pytest_cache/
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py.cover
+.hypothesis/
+cover/
+
+# IDE / Editor / System
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+tempCodeRunnerFile.py
+.spyderproject
+.spyproject
+.ropeproject
+
+# Environment Secrets (contains credentials - use .env.example as template)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.envrc
+.pypirc
+.streamlit/secrets.toml
+
+# Distribution / Build
+dist/
+build/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+
+# OS Files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Task / Assignment Documents
+*.docx
+INTERVIEW_PREPARATION_GUIDE.md
+schema.sql
+tests/
+
+# Databases & Cache
+db.sqlite3
+db.sqlite3-journal
+*.rdb
+*.aof
+*.pid
+
+# Celery & Message Queue
+celerybeat-schedule
+celerybeat.pid
+mnesia/
+rabbitmq/
+rabbitmq-data/
+activemq-data/
+
+# Logs
+*.log
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Generated Charts / Runtime Output
+static/charts/*.html
+
+# Linters / Type Checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Miscellaneous
+.abstra/
+/site
+*.sage.py
+

@@ -1,0 +1,152 @@
+/* ============================================
+   Instant Strike Execution Engine - Premium UI
+   Real Stock Market Terminal Aesthetic
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Apply modern premium font family */
+html, body, [class*="css"], .stMarkdown, .stButton, .stText {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* Clean up default Streamlit headers, footers and branding */
+#MainMenu {visibility: hidden;}
+header {visibility: hidden;}
+footer {visibility: hidden;}
+
+/* --- Live Pulse Animation --- */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(0, 200, 83, 0.4); }
+    50% { box-shadow: 0 0 15px rgba(0, 200, 83, 0.8), 0 0 30px rgba(0, 200, 83, 0.3); }
+}
+
+/* --- Metric Cards --- */
+[data-testid="stMetricValue"] {
+    font-size: 2.2rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace !important;
+    color: #e6edf3;
+    letter-spacing: -0.5px;
+}
+
+[data-testid="stMetricLabel"] {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+[data-testid="stMetricDelta"] {
+    font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* --- Tab Styling --- */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 4px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    border-radius: 6px 6px 0 0;
+}
+
+/* --- Alert Feed Cards --- */
+.alert-feed-container {
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: #30363d transparent;
+}
+
+.alert-feed-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.alert-feed-container::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 4px;
+}
+
+.alert-card {
+    padding: 14px 16px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #30363d;
+    background-color: #161b22;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.alert-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.alert-card-long {
+    border-left: 4px solid #00c853;
+    background: linear-gradient(135deg, #161b22 0%, #0d1f0d 100%);
+}
+
+.alert-card-short {
+    border-left: 4px solid #ff1744;
+    background: linear-gradient(135deg, #161b22 0%, #1f0d0d 100%);
+}
+
+.alert-card-info {
+    border-left: 4px solid #58a6ff;
+    background: linear-gradient(135deg, #161b22 0%, #0d1525 100%);
+}
+
+.alert-header {
+    font-weight: 600;
+    font-size: 0.88rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    color: #e6edf3;
+}
+
+.alert-time {
+    color: #8b949e;
+    font-size: 0.75rem;
+    font-weight: 400;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.alert-body {
+    font-size: 0.88rem;
+    color: #c9d1d9;
+    line-height: 1.5;
+}
+
+/* --- Dataframe styling --- */
+[data-testid="stDataFrame"] {
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* --- Button styling --- */
+.stButton > button {
+    border: 1px solid #30363d;
+    background-color: #21262d;
+    color: #c9d1d9;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.stButton > button:hover {
+    background-color: #30363d;
+    border-color: #58a6ff;
+    color: #ffffff;
+}
