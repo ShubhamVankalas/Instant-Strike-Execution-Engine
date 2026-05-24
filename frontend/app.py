@@ -779,7 +779,7 @@ with tab_ai:
                         api_messages = [
                             {
                                 "role": "system", 
-                                "content": "You are the StrikeIntelligence AI Assistant. You have access to real-time options engine tools. Use them to answer the user's queries."
+                                "content": "You are the StrikeIntelligence AI Assistant. You have access to real-time options engine tools. Use them to answer the user's queries. IMPORTANT RULES: 1. If you cannot find the information or do not have the data, explicitly state 'I could not find any information regarding that.' Do not hallucinate or provide random information. 2. Never expose, mention, or explain the internal tools, function names, or system architecture to the user. Provide the final answer directly and naturally."
                             }
                         ]
                         for m in st.session_state.messages:
