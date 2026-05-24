@@ -131,7 +131,8 @@ Ensure you have the following installed on your machine:
 * Python 3.11+
 * PostgreSQL
 * Redis
-* LM Studio (running a local LLM, e.g., `gemma-2-2b-it`)
+* LM Studio (running a local LLM, e.g., `google/gemma-4-e4b`)
+
 
 ### 2. Configure Virtual Environment & Dependencies
 The project uses the `strikeEngine` virtual environment:
@@ -171,7 +172,8 @@ TWILIO_TO_NUMBER=whatsapp:+your_registered_number
 
 # LM Studio Configuration
 LM_STUDIO_BASE_URL=http://localhost:1234/v1
-LM_STUDIO_MODEL=gemma-2-2b-it
+LM_STUDIO_MODEL=google/gemma-4-e4b
+
 
 # Quant Configuration
 SPIKE_THRESHOLD=0.0005  # Set to 0.05 (5%) in production. Use 0.0005 (0.05%) for testing.
@@ -244,10 +246,6 @@ The dashboard will open automatically in your browser at `http://localhost:8501`
    * A closure WhatsApp message is dispatched.
 5. You can also toggle between simulated and live DhanHQ feed from the sidebar in the Streamlit dashboard.
 
-To run automated unit tests:
-```powershell
-pytest tests/
-```
 
 ---
 

@@ -33,7 +33,7 @@ class Settings(BaseSettings):
 
     # LM Studio (OpenAI SDK Compatible) Local Service
     LM_STUDIO_BASE_URL: str = "http://localhost:1234/v1"
-    LM_STUDIO_MODEL: str = "gemma-2-2b-it"
+    LM_STUDIO_MODEL: str = "google/gemma-4-e4b"
 
     # Quantitative Strategy Constants
     # Trigger threshold representing percentage move (e.g. 0.05 = 5%, 0.0005 = 0.05%)
